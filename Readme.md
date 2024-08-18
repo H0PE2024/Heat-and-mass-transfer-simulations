@@ -40,23 +40,27 @@ $$
 ## Analytical solution
 
 Analytical solution is well know and given as:   
+
 $$
-T(x) = \frac{T_L - T_0}{L} x + T_0 - \frac{q}{2k} x^2 + \frac{qLx}{2k}
+T\(x\) \= -\frac{T_L - T_0}{L} x + T_0 - \frac{q}{2k} x^2 + \frac{qLx}{2k}
 $$
 
 ## Solving using Finite difference method
 ### Methodology
 
 1. **Discretization:** Divide the rod into  n  equally spaced nodes. The distance between adjacent nodes is $\Delta x = \frac{L}{n-1} $
-2. **Finite Difference Approximation:** The equation  
-
+2. **Finite Difference Approximation:** The equation
+   
 $$
 -\frac{d^2 T(x)}{dx^2} = \frac{q}{k}
 $$
+
 can be written as  
+
 $$
 T_{i-1} - 2T_i + T_{i+1} = -\frac{q (\Delta x)^2}{k}
 $$
+
 3. **Linear System Formation:** The following equations can be summarised into a set of linear equations of the form AT = B. Additionally boundary conditions need to be incorporated, apart from the FDM equation obtained above.
 4. **Solve the System:** Solve the linear system to obtain the temperature distribution at each node.  
 
@@ -109,9 +113,12 @@ This is solved using np.linalg.solve solver in Python available for solving stan
 
 4.2 **Check for energy conservation**
 Total heat generated shall be equal to heat being conducted away at the end of the rod. This can be represented as 
+
 $$
-q_{\text{gen}} \cdot L = k \cdot \left. \frac{dT}{dx} \right|_{x=0}-k \cdot \left. \frac{dT}{dx} \right|_{x=L}
+q_{\text{gen}} \cdot L = k \cdot \left. \frac{dT}{dx} \right|_{x=0}
 $$
+
+$$- k \cdot \left. \frac{dT}{dx} \right|_{x=L}$$
 
 Heat transfer in x direction at various positions on the rod can be represented as
 ![Heat transfer](Heat_transfer.png)
@@ -172,33 +179,40 @@ $$
 Additional equations from boundary conditions can be mentioned as: 
 ### Boundary conditions from Convective Heat Transfer happening at all plate edges
 
-- At x = 0  and x = L_x, $$ -k \frac{\partial T}{\partial x} = h(T - T_\infty) $$ 
-- At y = 0 and y = L_y, $$ -k \frac{\partial T}{\partial y} = h(T - T_\infty) $$ 
+- At x = 0  and x = L_x,
+
+$$ -k \frac{\partial T}{\partial x} = h(T - T_\infty) $$
+  
+- At y = 0 and y = L_y,
+  
+$$ -k \frac{\partial T}{\partial y} = h(T - T_\infty) $$ 
 
 Here are the FDM equations corresponding to boundary condition equations for the temperature field in a 2D heat conduction problem:
 
 1. **At \( x = 0 \):**
-   $$
-   T_{i,j} - \frac{k T_{i+1,j}}{k + h \Delta x} = \frac{h \Delta x T_\infty}{k + h \Delta x}
-   $$
+   
+$$
+T_{i,j} - \frac{k T_{i+1,j}}{k + h \Delta x} = \frac{h \Delta x T_\infty}{k + h \Delta x}
+$$
 
-2. **At \( x = L_x \):**
+3. **At \( x = L_x \):**
 
-   $$
-   T_{i,j} - \frac{k T_{i-1,j}}{k + h \Delta x} = \frac{h \Delta x T_\infty}{k + h \Delta x}
-   $$
+$$
+T_{i,j} - \frac{k T_{i-1,j}}{k + h \Delta x} = \frac{h \Delta x T_\infty}{k + h \Delta x}
+$$
 
-3. **At \( y = 0 \):**
+4. **At \( y = 0 \):**
 
-   $$
-   T_{i,j} - \frac{k T_{i,j+1}}{k + h \Delta y} = \frac{h \Delta y T_\infty}{k + h \Delta y}
-   $$
+$$
+T_{i,j} - \frac{k T_{i,j+1}}{k + h \Delta y} = \frac{h \Delta y T_\infty}{k + h \Delta y}
+$$
 
-4. **At \( y = L_y \):**
+5. **At \( y = L_y \):**
 
-   $$
-   T_{i,j} - \frac{k T_{i,j-1}}{k + h \Delta y} = \frac{h \Delta y T_\infty}{k + h \Delta y}
-   $$
+$$
+T_{i,j} - \frac{k T_{i,j-1}}{k + h \Delta y} = \frac{h \Delta y T_\infty}{k + h \Delta y}
+$$
+   
 ## Matrix representing Linear equations
 
 ### Interior Node
@@ -258,9 +272,11 @@ Lets plot variation in temperature in x direction at different values of y throu
 **OBSERVATIONS**
 - The plot is symmetric attributing to symmetric nature of problem
 - Maximum temperature achieved is 35 degrees, with minimal variation throughout the block which can be attributed to high conductivity or high convection coefficient value i.e.  (lumped mass model would give us similar value, assuming T to be constant for the entire block)
+- 
 $$
 q \cdot A_{\text{total}} = h \cdot (T - T_{\infty}) \cdot A_{\text{surfaces}}
 $$
+
 where  $A_{\text{surfaces}}$ = $1*4$ (for heat loss from four surfaces)     
 
 Solving for T, we get T = 35 $^\circ\text{C}$, which matches close to our simulation value, showing up in the graph above.
