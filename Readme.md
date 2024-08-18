@@ -146,9 +146,11 @@ Summary of conditions
 - Steady state
 
 ## Final Governing Equations for 2D heat transfer
+
 $$
 \frac{\partial^2 T(x,y)}{\partial x^2} + \frac{\partial^2 T(x,y)}{\partial y^2} + \frac{q}{k} = 0
 $$
+
 **FDM equations derived from this can be written as:**
 The Finite Difference Method (FDM) equation for the 2D steady-state heat conduction with heat generation is:
 
