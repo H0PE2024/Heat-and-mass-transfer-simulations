@@ -39,7 +39,7 @@ $$
 (intutively heat generated should be conducted away)
 ## Analytical solution
 
-Analytical solution is well know and given as: 
+Analytical solution is well know and given as:   
 $$
 T(x) = \frac{T_L - T_0}{L} x + T_0 - \frac{q}{2k} x^2 + \frac{qLx}{2k}
 $$
@@ -48,23 +48,23 @@ $$
 ### Methodology
 
 1. **Discretization:** Divide the rod into  n  equally spaced nodes. The distance between adjacent nodes is $\Delta x = \frac{L}{n-1} $
-2. **Finite Difference Approximation:** The equation
+2. **Finite Difference Approximation:** The equation  
 
 $$
 -\frac{d^2 T(x)}{dx^2} = \frac{q}{k}
 $$
-can be written as
+can be written as  
 $$
 T_{i-1} - 2T_i + T_{i+1} = -\frac{q (\Delta x)^2}{k}
 $$
 3. **Linear System Formation:** The following equations can be summarised into a set of linear equations of the form AT = B. Additionally boundary conditions need to be incorporated, apart from the FDM equation obtained above.
-4. **Solve the System:** Solve the linear system to obtain the temperature distribution at each node.
+4. **Solve the System:** Solve the linear system to obtain the temperature distribution at each node.  
 
 $$
 \mathbf{A} \mathbf{T} = \mathbf{B}
 $$
 
-where
+where  
 
 $$
 \mathbf{A} =
@@ -98,7 +98,8 @@ T_3 \\
 \vdots \\
 T_{n-1} \\
 \end{bmatrix}
-$$
+$$  
+
 This is solved using np.linalg.solve solver in Python available for solving standard linear systems.
 4. **Verify the solution** Perform sanity checks on the obtained solution to ensure computed solution is correct.
 
